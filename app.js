@@ -2,6 +2,7 @@ var express = require('express')
 var path = require('path')
 var logger = require('morgan')
 var bodyParser = require('body-parser')
+var mongoose = require('mongoose')
 
 var room = require('./routes/room')
 var chat = require('./routes/chat')
@@ -14,6 +15,12 @@ app.use(express.static(path.join(__dirname, 'dist')))
 app.use('/rooms', express.static(path.join(__dirname, 'dist')))
 app.use('/api/room', room)
 app.use('/api/chat', chat)
+
+// Mongoose settings
+mongoose.Promise = require('bluebird')
+mongoose.connect('mongodb://localhost/mevn-chat', { promiseLibrary: require('bluebird') })
+  .then(() => console.log('connection successful'))
+  .catch((err) => console.error(err));
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
