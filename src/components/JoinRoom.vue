@@ -34,13 +34,13 @@ export default {
   methods: {
     onSubmit(evt) {
       evt.preventDefault();
-      this.chat.room = this.$route.params.id,
+      this.chat.room = this.$route.params.id;
       this.chat.message = `${this.chat.nickname} joined the room`;
       axios.post('http://localhost:3000/api/chat', this.chat)
         .then((response) => {
           this.$router.push({
             name: 'ChatRoom',
-            params: { id: this.$router.params.id, nickname: response.data.nickname },
+            params: { id: this.$route.params.id, nickname: response.data.nickname },
           })
             .catch((err) => {
               this.errors.push(err);
