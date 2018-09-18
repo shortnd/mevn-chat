@@ -5,14 +5,14 @@
         Room List
         <b-link href="/add-room">(Add Room)</b-link>
       </h2>
-      <b-table striped hover :items="rooms" : fields="fields">
-        <template slot="actions" scope="row">
+      <b-table striped hover :items="rooms" :fields="fields">
+        <div slot="actions" scope="row">
           <b-btn size="sm" @click.stop="join(row._id)">Join</b-btn>
-        </template>
+        </div>
       </b-table>
       <ul v-if="errors && errors.length">
         <li v-for="(error, index) of errors" :key="index">
-          {{ error.message }}
+          {{error.message}}
         </li>
       </ul>
     </b-col>
@@ -20,10 +20,11 @@
 </template>
 
 <script>
+
 import axios from 'axios';
 
 export default {
-  name: 'RoomList',
+  name: 'BookList',
   data() {
     return {
       fields: {
@@ -38,8 +39,9 @@ export default {
   created() {
     axios.get('http://localhost:3000/api/room')
       .then((response) => {
-        this.rooms = response.body;
-      }).catch((e) => {
+        this.rooms = response.data;
+      })
+      .catch((e) => {
         this.errors.push(e);
       });
   },
@@ -53,7 +55,3 @@ export default {
   },
 };
 </script>
-
-<style>
-
-</style>
