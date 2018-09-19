@@ -3,12 +3,10 @@
     <b-col cols="12">
       <h2>
         Room List
-        <b-link href="/add-room">(Add Room)</b-link>
+        <b-link href="#/add-room">(Add Room)</b-link>
       </h2>
       <b-table striped hover :items="rooms" : fields="fields">
-        <template slot="actions" scope="row">
           <b-btn size="sm" @click.stop="join(row._id)">Join</b-btn>
-        </template>
       </b-table>
       <ul v-if="errors && errors.length">
         <li v-for="(error, index) of errors" :key="index">
